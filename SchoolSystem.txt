@@ -1,0 +1,63 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.StringTokenizer;
+
+
+
+public class SchoolSystem {
+	int[] surplusStudent=new int[3];
+	int[] maxStudent;
+	int[] currentStudent;
+	ArrayList<Boolean>result=new ArrayList<Boolean>();
+	public SchoolSystem(int big,int mrfium,int small) {
+		surplusStudent[0]=big;
+		surplusStudent[1]=mrfium;
+		surplusStudent[2]=small;
+		
+	}
+	public boolean addStudent(int stuType) {
+		switch(stuType) {
+		case 1:if(surplusStudent[0]>0) {surplusStudent[0]--;return true;}else return false;
+		case 2:if(surplusStudent[1]>0) {surplusStudent[1]--;return true;}else return false;
+		case 3:if(surplusStudent[2]>0) {surplusStudent[2]--;return true;}else return false;
+		}return false;
+	}
+	public void print() {
+		for(int i=0;i<result.size();i++) {
+		System.out.println(result.get(i));
+	}
+	}
+public static ArrayList<Integer>parse(){
+	String input;
+	String input1;
+	String input2;
+	ArrayList<Integer>list=new ArrayList<Integer>();
+	System.out.println("请输入每个班级剩余的名额（用，隔开切剩余人数只能在0-9之间）");
+	Scanner in=new Scanner(System.in);
+	input1=in.next();
+	System.out.println("请输入要增加名额的班级增加人数为1（用，隔开）（大班:1，中班:2，小班:3）");
+	input2=in.next();
+
+	if(input != null && !"".equals(input)){//判断输入的字符串是否为空
+	for(int i=0;i<input.length();i++){
+	if(input.charAt(i)>=48 && input.charAt(i)<=57){//判断当前位置字符是否为数字字符
+		int num=input.charAt(i)-'0';
+	list.add(num);
+	}
+	}
+}return list;
+	
+	
+}
+public static void main(String[] args) {
+	boolean b;
+	ArrayList<Integer>params=SchoolSystem.parse();
+	SchoolSystem sc=new SchoolSystem(params.get(0),params.get(1),params.get(2));
+	for(int i=3;i<params.size();i++) 
+	{b=sc.addStudent(params.get(i));
+	sc.result.add(b);
+	}
+	sc.print();
+}
+
+}
