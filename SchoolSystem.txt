@@ -16,11 +16,11 @@ public class SchoolSystem {
 		
 	}
 	public boolean addStudent(int stuType) {
-		switch(stuType) {
+		switch(stuType) {//判断输入要添加名额的班级
 		case 1:if(surplusStudent[0]>0) {surplusStudent[0]--;return true;}else return false;
 		case 2:if(surplusStudent[1]>0) {surplusStudent[1]--;return true;}else return false;
 		case 3:if(surplusStudent[2]>0) {surplusStudent[2]--;return true;}else return false;
-		}return false;
+		}return false;//添加成功返回true失败则false
 	}
 	public void print() {
 		for(int i=0;i<result.size();i++) {
@@ -37,15 +37,20 @@ public static ArrayList<Integer>parse(){
 	input1=in.next();
 	System.out.println("请输入要增加名额的班级增加人数为1（用，隔开）（大班:1，中班:2，小班:3）");
 	input2=in.next();
-
-	if(input != null && !"".equals(input)){//判断输入的字符串是否为空
+	StringTokenizer wordDome=new StringTokenizer(input,",");//字符串的分割对象方法
+	while(wordDome.hasMoreElements())//判断是否字符串中还有分割符如果还有就继  
+    {
+    	list.add(Integer.valueOf(wordDome.nextToken()));//添加到ArraryList集合类里
+    	
+    }
+	/*if(input != null && !"".equals(input)){//判断输入的字符串是否为空
 	for(int i=0;i<input.length();i++){
 	if(input.charAt(i)>=48 && input.charAt(i)<=57){//判断当前位置字符是否为数字字符
 		int num=input.charAt(i)-'0';
-	list.add(num);
+	list.add(num);//添加到ArraryList集合类里
 	}
 	}
-}return list;
+}*/return list;//返回一个ArraryList集合类
 	
 	
 }
