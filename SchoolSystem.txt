@@ -4,11 +4,10 @@ import java.util.StringTokenizer;
 
 
 
-
 public class SchoolSystem {
 	int[] surplusStudent=new int[3];
 	int[] maxStudent;
-	int[] currentStudent;
+	int[] currentStudent= {20,30,25};//当前人数
 	ArrayList<Boolean>result=new ArrayList<Boolean>();
 	public SchoolSystem(int big,int mrfium,int small) {
 		surplusStudent[0]=big;
@@ -17,17 +16,10 @@ public class SchoolSystem {
 		
 	}
 	public boolean addStudent(int stuType) {
-		switch(stuType) {//判断输入要添加名额的班级
+		switch(stuType) {
 		case 1:if(surplusStudent[0]>0) {surplusStudent[0]--;return true;}else return false;
 		case 2:if(surplusStudent[1]>0) {surplusStudent[1]--;return true;}else return false;
 		case 3:if(surplusStudent[2]>0) {surplusStudent[2]--;return true;}else return false;
-		}return false;//添加成功返回true失败则false
-	}
-	public boolean delStudent(int stuType) {
-		switch(stuType) {
-		case -1:if(currentStudent[0]>0) {currentStudent[0]--;return true;}else return false;
-		case -2:if(currentStudent[1]>0) {currentStudent[1]--;return true;}else return false;
-		case -3:if(currentStudent[2]>0) {currentStudent[2]--;return true;}else return false;
 		}return false;
 	}
 	public void print() {
@@ -35,16 +27,25 @@ public class SchoolSystem {
 		System.out.println(result.get(i));
 	}
 	}
+	public boolean delStudent(int stuType) {//新增作业的修改代码
+		switch(stuType) {
+		case -1:if(currentStudent[0]>0) {currentStudent[0]--;return true;}else return false;
+		case -2:if(currentStudent[1]>0) {currentStudent[1]--;return true;}else return false;
+		case -3:if(currentStudent[2]>0) {currentStudent[2]--;return true;}else return false;
+		}return false;
+	}
 public static ArrayList<Integer>parse(){
 	String input;
 	String input1;
 	String input2;
 	ArrayList<Integer>list=new ArrayList<Integer>();
-	System.out.println("请输入每个班级剩余的名额（用，隔开切剩余人数只能在0-9之间）");
+	System.out.println("请输入每个班级(大，中，小)剩余的名额（用，隔开切剩余人数只能在0-9之间）");
 	Scanner in=new Scanner(System.in);
 	input1=in.next();
-	System.out.println("请输入要增加名额的班级增加人数为1（用，隔开）（大班:1，中班:2，小班:3）");
+	System.out.println("请输入要增加名额的班级增加人数为1（用，隔开）（大班:1，中班:2，小班:3）\n减少人数就输入（大班:-1，中班:-2，小班:-3）");
 	input2=in.next();
+	//input=input1+input2;
+	input=input1+","+input2;
 	StringTokenizer wordDome=new StringTokenizer(input,",");//字符串的分割对象方法
 	while(wordDome.hasMoreElements())//判断是否字符串中还有分割符如果还有就继  
     {
@@ -66,11 +67,16 @@ public static void main(String[] args) {
 	boolean b;
 	ArrayList<Integer>params=SchoolSystem.parse();
 	SchoolSystem sc=new SchoolSystem(params.get(0),params.get(1),params.get(2));
-	for(int i=3;i<params.size();i++) 
-	{b=sc.addStudent(params.get(i));
+	for(int i=3;i<params.size();i++) //for循环里面增加了if预计判断增减
+	{
+	if(params.get(i)>0)
+	b=sc.addStudent(params.get(i));
+	else
+	b=sc.delStudent(params.get(i));
 	sc.result.add(b);
 	}
 	sc.print();
 }
 
+}
 }
